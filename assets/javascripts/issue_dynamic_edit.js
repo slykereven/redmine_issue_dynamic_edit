@@ -234,11 +234,12 @@ document.querySelector('body').addEventListener('click', function(e){
 		let formData = [];
 		let existingIndex = [];
 		inputs.forEach(elt => {
-			let not_multiple = !elt.matches('input[type="radio"]') && !elt.matches('input[type="checkbox"]');
-			if(elt.matches('input[type="radio"]:checked') || elt.matches('input[type="checkbox"]:checked') || not_multiple){
-				if(!existingIndex.includes(elt.getAttribute('name'))){
+			if (elt.matches('input[type="checkbox"]')) {
+				formData.push({"name" : elt.getAttribute('name'), "value" : elt.checked ? elt.value : ''});
+			} else if (elt.matches('input[type="radio"]:checked') || !elt.matches('input[type="radio"]')) {
+				if (!existingIndex.includes(elt.getAttribute('name'))) {
 					existingIndex.push(elt.getAttribute('name'));
-					formData.push({"name" : elt.getAttribute('name'), "value" : elt.value})
+					formData.push({"name" : elt.getAttribute('name'), "value" : elt.value});
 				}
 			}
 		});
